@@ -1,0 +1,54 @@
+// WordPress Generated Classes
+// http://codex.wordpress.org/CSS#WordPress_Generated_Classes
+
+// Media alignment
+.alignnone {
+  margin-left: 0;
+  margin-right: 0;
+  max-width: 100%;
+  height: auto;
+}
+.aligncenter {
+  display: block;
+  margin: 0 auto;
+  height: auto;
+}
+.alignleft,
+.alignright {
+  margin-bottom: 0;
+  height: auto;
+}
+@media (all) {
+  // Only float if not on an extra small device
+  .alignleft {
+    float: left;
+    margin-right: 0;
+  }
+  .alignright {
+    float: right;
+    margin-left: 0;
+  }
+}
+
+// Captions
+.wp-caption {
+
+}
+.wp-caption-text {
+
+}
+
+// Text meant only for screen readers
+.screen-reader-text {
+
+}
+
+.admin-acf-half {
+    float: left;
+    width: 50%;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    clear: left !important;
+    border-left-width: 0 !important;
+}
