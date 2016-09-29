@@ -6,7 +6,7 @@
   "private": true,
   "scripts": {},
   "dependencies": {
-    "foundation-sites": "^6.2.3",    
+    "foundation-sites": "^6.2.3"    
   },
   "devDependencies": {
     "autoprefixer": "^6.3.4",
