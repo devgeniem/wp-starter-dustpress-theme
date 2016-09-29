@@ -5,7 +5,9 @@
   "description": "",
   "private": true,
   "scripts": {},
-  "dependencies": {},
+  "dependencies": {
+    "foundation-sites": "^6.2.3",    
+  },
   "devDependencies": {
     "autoprefixer": "^6.3.4",
     "css-loader": "^0.23.1",
@@ -17,7 +19,6 @@
     "node-sass": "^3.4.2",
     "style-loader": "^0.13.0",
     "url-loader": "^0.5.7",
-    "foundation-sites": "^6.2.3",
     "webpack": "^1.12.14"
   }
 }
