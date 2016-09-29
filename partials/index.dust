@@ -1,0 +1,10 @@
+{>"shared/header" /}
+
+{#Index.Content}
+
+	<h1>{WP.name}</h1>
+	{@content}{/content}
+
+{/Index.Content}
+
+{>"shared/footer" /}

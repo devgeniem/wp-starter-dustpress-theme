@@ -3,6 +3,8 @@
 class Single extends MiddleModel {
 
     public function Content() {
+        //$post = \DustPress\Query::get_acf_post(get_the_ID());
+        // no acf by default
         $post = \DustPress\Query::get_acf_post(get_the_ID());
         return $post;
     }
