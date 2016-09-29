@@ -1,0 +1,12 @@
+{#Single}
+{>"shared/header" /}
+
+    {#Content}
+
+	<h1>{post_title}</h1>
+	{@content}{/content}
+
+	{/Content}
+
+{>"shared/footer" /}
+{/Single}

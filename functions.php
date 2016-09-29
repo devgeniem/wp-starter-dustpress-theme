@@ -1,4 +1,6 @@
 <?php
+// use dustpress
+dustpress();
 
 $includes = [
     'lib/assets.php',    // Scripts and stylesheets
