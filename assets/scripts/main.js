@@ -2,6 +2,7 @@
 * require scripts here for concatenation
 */
 
+require( 'foundation-sites' );
 require( __dirname + '/app.js');
 
 /**
