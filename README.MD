@@ -19,7 +19,7 @@ First you need to install required npm packages to start developing. In your the
 npm install
 ```
 
-Replace the `THEMENAME` string with your theme name within all project files with a case ***sensitive*** search and replace. This is used to build a namespace for your themes function files.
+Replace the `THEMENAME` string with your theme name within all project files with a case ***sensitive*** search and replace. This is used for namespacing the theme function files.
 
 ## Translations and textdomain
 
