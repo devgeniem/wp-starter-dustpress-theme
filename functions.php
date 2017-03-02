@@ -1,18 +1,24 @@
 <?php
+/**
+ * Initialize the theme settings loading.
+ */
 
-// use dustpress
+// Use dustpress
 dustpress();
 
+// Require all function files under /lib.
+$lib_path = dirname( __FILE__ ) . '/lib/';
+
+// List your /lib files here.
 $includes = [
-    'lib/assets.php',    // Scripts and stylesheets
-    'lib/extras.php',    // Custom functions
-    'lib/setup.php',     // Theme setup
-    'lib/images.php',    // image functions
+    'extras.php', // Custom functions
+    'setup.php',  // Theme setup
+    'images.php', // Image functions
 ];
+
 foreach ( $includes as $file ) {
-    if ( ! $filepath = locate_template( $file ) ) {
-        trigger_error( sprintf( __( 'Error locating %s for inclusion', 'themename' ), $file ), E_USER_ERROR );
+    $file_path = $lib_path . $file;
+    if ( is_file( $file_path ) ) {
+        require $file_path;
     }
-    require_once $filepath;
 }
-unset( $file, $filepath );
