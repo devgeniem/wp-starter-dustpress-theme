@@ -1,13 +1,23 @@
 <?php
+/**
+ * Image setup file.
+ */
 
 namespace THEMENAME\Images;
 
-// SVG support
-add_filter('upload_mimes', __NAMESPACE__ . '\\cc_mime_types');
-function cc_mime_types($mimes) {
-  $mimes['svg'] = 'image/svg+xml';
-  return $mimes;
-}
+/**
+ * Add SVG support.
+ *
+ * @param array $mimes The accepted mime types.
+ *
+ * @return mixed
+ */
+function cc_mime_types( $mimes ) {
+    $mimes['svg'] = 'image/svg+xml';
 
-// add compressing level
-add_filter( 'jpeg_quality', create_function( '', 'return 80;' ) );
+    return $mimes;
+}
+\add_filter( 'upload_mimes', __NAMESPACE__ . '\\cc_mime_types' );
+
+// Add compressing level.
+\add_filter( 'jpeg_quality', create_function( '', 'return 80;' ) );

@@ -1,21 +1,44 @@
-
-// set class name and pass common parameters to it
+// Set class name and pass common parameters to it.
 window.Main = ( function( window, document, $ ){
 
-    // init app object which refers to the class
-    var app = {};
+    // Init app object which refers to the class.
+    var app = {
+        // Add initial settings for the class.
+        "cached": false
+    };
 
-    // store dom nodes in cache
+    /**
+     * Store dom nodes in cache
+     */
     app.cache = function(){
-
+        // Use the dollar sign to identify your jQuery DOM nodes.
+        app.$body = $("body");
+        // Use class variables for persistent data within your class scope.
+        // This modifies the initial value of "cached".
+        app.cached = true;
     };
 
-    // init the class
+    /**
+     * Init the class
+     */
     app.init = function(){
-
+        app.$body("on", "click", app.bodyClick);
     };
 
-    // init app object which refers to the class, use this in all other js file to call their init only if a certain body class is present.
+    /**
+     * An example of an event listener.
+     *
+     * @param event
+     */
+    app.bodyClick = function(event) {
+        console.log("Ah, you clicked my body!");
+    };
+
+    /**
+     * Init app object which refers to the class,
+     * use this in all other js file to call their
+     * init only if a certain body class is present.
+     */
     app.runWithClass = function() {
 
         window.runWithClass = function(bodyClass) {
@@ -27,13 +50,11 @@ window.Main = ( function( window, document, $ ){
 
     };
 
-    // run init on document ready
-    $(document).ready(function() {
-        app.init();
-    });
+    // Run init on document ready for instance.
+    $(document).ready(app.init);
 
-    // return the class
+    // Return the class to add it under the window object.
     return app;
 
-// close scope
+    // Close the scope.
 })( window, document, jQuery );
