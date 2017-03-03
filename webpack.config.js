@@ -3,29 +3,22 @@ var ExtractTextPlugin       = require("extract-text-webpack-plugin");
 var autoprefixer            = require("autoprefixer");
 var autoprefixerBrowsers    = ["> 1%", "last 2 versions", "Firefox ESR", "Opera 12.1"];
 var env                     = process.env.NODE_ENV;
-var plugins                 = [];
+var plugins                 = [
+    new ExtractTextPlugin("/../styles/main.css", {
+        allChunks: true
+    }),
+];
 
-// Set production plugins.
+// Minify on production.
 if (env === "production") {
-    plugins = [
-        new ExtractTextPlugin("/../styles/main.css", {
-            allChunks: true
-        }),
+    plugins.push(
         new webpack.optimize.UglifyJsPlugin({
             mangle: false,
             compress: {
                 unused: false
             }
         })
-    ];
-}
-// Set development plugins.
-else {
-    plugins = [
-        new ExtractTextPlugin("/../styles/main.css", {
-            allChunks: true
-        })
-    ];
+    );
 }
 
 module.exports = {

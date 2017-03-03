@@ -6,8 +6,9 @@
 
 @import "~foundation-sites/scss/foundation";
 
-// Foundation
-//
+/*
+ * Include Foundation styles
+ */
 @include foundation-global-styles;
 //@include foundation-grid;
 //@include foundation-flex-grid;
