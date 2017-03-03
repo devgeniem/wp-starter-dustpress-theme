@@ -1,14 +1,14 @@
 var webpack                 = require("webpack");
 var ExtractTextPlugin       = require("extract-text-webpack-plugin");
-var autoprefixer            = require('autoprefixer');
+var autoprefixer            = require("autoprefixer");
 var autoprefixerBrowsers    = ["> 1%", "last 2 versions", "Firefox ESR", "Opera 12.1"];
 var env                     = process.env.NODE_ENV;
 var plugins                 = [];
 
 // Set production plugins.
-if (env === 'production') {
+if (env === "production") {
     plugins = [
-        new ExtractTextPlugin('/../styles/main.css', {
+        new ExtractTextPlugin("/../styles/main.css", {
             allChunks: true
         }),
         new webpack.optimize.UglifyJsPlugin({
@@ -22,7 +22,7 @@ if (env === 'production') {
 // Set development plugins.
 else {
     plugins = [
-        new ExtractTextPlugin("main.css", {
+        new ExtractTextPlugin("/../styles/main.css", {
             allChunks: true
         })
     ];
@@ -30,11 +30,11 @@ else {
 
 module.exports = {
     entry: {
-        main: __dirname + '/assets/scripts/main.js'
+        main: __dirname + "/assets/scripts/main.js"
     },
     output: {
-        path: __dirname + '/dist/scripts',
-        filename: '[name].js'
+        path: __dirname + "/dist/scripts",
+        filename: "[name].js"
     },
     module: {
         loaders: [
@@ -44,7 +44,7 @@ module.exports = {
             },
             {
                 test: /\.scss$/,
-                loader: ExtractTextPlugin.extract('style-loader', 'css!postcss!sass')
+                loader: ExtractTextPlugin.extract("style-loader", "css!postcss!sass")
             },
             {
                 test: /\.(woff(2)?|eot|ttf|otf)(\?[a-z0-9=\.]+)?$/,
