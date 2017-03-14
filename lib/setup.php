@@ -13,7 +13,6 @@ if ( ! defined( ASSET_PATH ) ) {
 /**
  * Theme setup.
  */
-\add_action( 'after_setup_theme', __NAMESPACE__ . '\\setup' );
 function setup() {
     // Make theme available for translation
     \load_theme_textdomain( 'themename', get_template_directory() . '/lang' );
@@ -40,13 +39,15 @@ function setup() {
     // To add custom styles edit /assets/styles/layouts/_tinymce.scss
     \add_editor_style( ASSET_PATH . '/styles/main.css' );
 }
+\add_action( 'after_setup_theme', __NAMESPACE__ . '\\setup' );
 
 /**
  * Theme assets.
  */
 function assets() {
-    \wp_enqueue_style( 'theme_assets/css', ASSET_PATH . '/styles/main.css' ), false, null );
-    \wp_enqueue_script( 'theme_assets/js', ASSET_PATH . '/scripts/main.js' ), [ 'jquery' ], null, true );
+    $version    = wp_get_theme()->get( 'Version' );
+    \wp_enqueue_style( 'theme-css', ASSET_PATH . '/styles/main.css', [], $version, 'all' );
+    \wp_enqueue_script( 'theme-js', ASSET_PATH . '/scripts/main.js', [ 'jquery' ], $version, true );
 }
 
 \add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\\assets', 100 );
@@ -66,6 +67,12 @@ function disable_emojis() {
 }
 \add_action( 'init', __NAMESPACE__ . '\\disable_emojis' );
 
+/**
+ * Removes the emoji plugin from tinymce.
+ *
+ * @param  array $plugins Installed tinymce plugins.
+ * @return array
+ */
 function disable_emojis_tinymce( $plugins ) {
     if ( is_array( $plugins ) ) {
         return array_diff( $plugins, [ 'wpemoji' ] );
@@ -98,21 +105,21 @@ function cleanup_head() {
     // Index link
     \remove_action( 'wp_head', 'index_rel_link' );
     // Previous link
-    \remove_action( 'wp_head', 'parent_post_rel_link', 10, 0 );
+    \remove_action( 'wp_head', 'parent_post_rel_link', 10 );
     // Start link
-    \remove_action( 'wp_head', 'start_post_rel_link', 10, 0 );
+    \remove_action( 'wp_head', 'start_post_rel_link', 10 );
     // Canonical
-    \remove_action( 'wp_head', 'rel_canonical', 10, 0 );
+    \remove_action( 'wp_head', 'rel_canonical', 10 );
     // Shortlink
-    \remove_action( 'wp_head', 'wp_shortlink_wp_head', 10, 0 );
+    \remove_action( 'wp_head', 'wp_shortlink_wp_head', 10 );
     // Links for adjacent posts
-    \remove_action( 'wp_head', 'adjacent_posts_rel_link_wp_head', 10, 0 );
+    \remove_action( 'wp_head', 'adjacent_posts_rel_link_wp_head', 10 );
     // WP version
     \remove_action( 'wp_head', 'wp_generator' );
     // rest api link
-    \remove_action( 'wp_head', 'rest_output_link_wp_head', 10, 0 );
+    \remove_action( 'wp_head', 'rest_output_link_wp_head', 10 );
     // embed links
-    \remove_action( 'wp_head', 'wp_oembed_add_discovery_links', 10, 0 );
+    \remove_action( 'wp_head', 'wp_oembed_add_discovery_links', 10 );
     // Remove oEmbed-specific JavaScript from the front-end and back-end.
     \remove_action( 'wp_head', 'wp_oembed_add_host_js' );
 }
