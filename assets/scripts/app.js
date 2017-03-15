@@ -22,7 +22,10 @@ window.Main = ( function( window, document, $ ){
      * Init the class
      */
     app.init = function(){
-        app.$body("on", "click", app.bodyClick);
+        // Run the DOM caching.
+        app.cache();
+        // Bind an event listener to a cached object.
+        app.$body.on("click", app.bodyClick);
     };
 
     /**
