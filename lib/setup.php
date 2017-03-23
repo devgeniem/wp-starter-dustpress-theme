@@ -6,7 +6,7 @@
 namespace THEMENAME\Setup;
 
 // Define the asset path.
-if ( ! defined( ASSET_PATH ) ) {
+if ( ! defined( 'ASSET_PATH' ) ) {
     define( 'ASSET_PATH', \get_template_directory_uri() . '/dist' );
 }
 
