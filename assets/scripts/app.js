@@ -1,10 +1,12 @@
 // Set class name and pass common parameters to it.
-window.Main = ( function( window, document, $ ){
+window.Main = ( function( window, document, $ ) {
 
-    // Init app object which refers to the class.
+    // Init the app object which refers to the class
+    // after the script is fully executed.
     var app = {
-        // Add initial settings for the class.
-        "cached": false
+        // Use class variables for persistent data within your class scope.
+        // The "Main" class can store values used in other script files (see frontpage.js).
+        "myGlobalVariable": "My value."
     };
 
     /**
@@ -12,10 +14,9 @@ window.Main = ( function( window, document, $ ){
      */
     app.cache = function(){
         // Use the dollar sign to identify your jQuery DOM nodes.
-        app.$body = $("body");
-        // Use class variables for persistent data within your class scope.
-        // This modifies the initial value of "cached".
-        app.cached = true;
+        app.$elementName = $("#element");
+        // This modifies the initial value of "myGlobalVariable.".
+        app.myGlobalVariable = "I changed my value.";
     };
 
     /**
@@ -24,17 +25,19 @@ window.Main = ( function( window, document, $ ){
     app.init = function(){
         // Run the DOM caching.
         app.cache();
-        // Bind an event listener to a cached object.
-        app.$body.on("click", app.bodyClick);
+        // Bind an event listener to a cached object if it exists.
+        if ( app.$elementName.length ) {
+            app.$elementName.on("click", app.elementClick);
+        }
     };
 
     /**
      * An example of an event listener.
      *
-     * @param event
+     * @param object event
      */
-    app.bodyClick = function(event) {
-        console.log("Ah, you clicked my body!");
+    app.elementClick = function(event) {
+        console.log("Ah, you clicked my elemenet!");
     };
 
     /**
@@ -42,15 +45,11 @@ window.Main = ( function( window, document, $ ){
      * use this in all other js file to call their
      * init only if a certain body class is present.
      */
-    app.runWithClass = function() {
-
-        window.runWithClass = function(bodyClass) {
-            if ( ! window.bodyNode || window.bodyNode.length < 1 ) {
-                window.bodyNode = $("body");
-            }
-            return window.bodyNode.hasClass(bodyClass);
-        };
-
+    app.runWithClass = function(bodyClass) {
+        if ( ! app.$bodyNode || app.$bodyNode.length < 1 ) {
+            app.$bodyNode = $("body");
+        }
+        return app.$bodyNode.hasClass(bodyClass);
     };
 
     // Run init on document ready for instance.

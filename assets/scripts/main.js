@@ -4,6 +4,7 @@
 
 require( 'foundation-sites' );
 require( __dirname + '/app.js');
+require( __dirname + '/frontpage.js');
 
 /**
 * require main style file here for concatenation

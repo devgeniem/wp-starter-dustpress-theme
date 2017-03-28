@@ -9,4 +9,4 @@
 
     {@wphead /}
   </head>
-  <body {WP.BodyClass}>
+  <body class="{#WP.body_class}{.}{@sep} {/sep}{/WP.body_class}">
