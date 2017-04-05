@@ -67,7 +67,50 @@ webpack -p
 
 These commands will compile *minified* versions of your assets.
 
-## Contributors
+## JavaScript development guide
+
+The theme's Webpack config uses [Babel](https://babeljs.io/) to compile [ES6](https://en.wikipedia.org/wiki/ECMAScript#6th_Edition_-_ECMAScript_2015) into [ES5](https://en.wikipedia.org/wiki/ECMAScript#5th_Edition). Thus we use [classes](http://es6-features.org/#ClassDefinition) and other cool features introduced in ES6. See the full list of ES6 features [here](http://es6-features.org/).
+
+The theme's main JS file `theme.js` holds the main theme class. The `Theme` class has runs other theme JS classes automatically on document ready event. To enable autoloading on JS side define your template scripts as follow:
+
+1. Create a separate script file for each WordPress template, for example `page-frontpage.js`.
+
+2. Define a JS class mimicking your DustPress model, for example `Class PageFrontpage {}`.
+
+3. The document's html element will automatically get a class from your main model, for example `<html class="PageFrontpage">`. If you add more scripts for a specific template, add the corresponding class names into the `html` element's classlist.
+
+4. Require your template script in `main.js` and add it into the controllers list.
+
+   ```javascript
+   // Add all theme controllers.
+   let controllers = {
+     	// The object name must match the class name.
+       "PageFrontpage": require( __dirname + "/page-frontpage.js" )
+     	// Add other scripts here..
+   };
+
+   // Run theme scripts.
+   let Theme = require( __dirname + "/theme.js" );
+   Theme = new Theme( controllers );
+   ```
+
+5. The `Theme` class will then automatically run a function called `docReady` when the document is ready. *Remember to define it in your template class!*
+
+The `Theme` class is accessible globally under the `window` object. To access a single template script for instance in some inline script, fetch it as follows:
+
+```javascript
+var PageFrontpage = window.Theme.getController("PageFrontpage");
+```
+
+To run all `docReady` functions manually for the current template *(controlled by the current html element classlist)*, run it with the class function:
+
+```
+window.Theme.runDocReady();
+```
+
+
+
+##  Contributors
 
 - [devgeniem](https://github.com/devgeniem)
 - [ironland](https://github.com/ironland)
