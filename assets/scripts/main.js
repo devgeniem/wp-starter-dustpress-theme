@@ -6,14 +6,19 @@
 require( "babel-polyfill" );
 require( "foundation-sites" );
 
-// Add all theme scripts.
-let scripts = {
+// Add template-specific scripts.
+let templateScripts = {
     "PageFrontpage": require( __dirname + "/page-frontpage.js" )
+};
+
+// Add global scripts
+let globalScripts = {
+    "Common": require( __dirname + "/common.js" )
 };
 
 // Run the theme scripts.
 let Theme = require( __dirname + "/theme.js" );
-Theme = new Theme( scripts );
+Theme = new Theme( templateScripts, globalScripts );
 
 // Export for global usage.
 window.Theme = Theme;
