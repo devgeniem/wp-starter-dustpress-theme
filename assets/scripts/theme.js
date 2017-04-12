@@ -5,8 +5,9 @@
  */
 class Theme {
 
-    constructor(controllers) {
-        this._controllers = controllers;
+    constructor( templateControllers, globalControllers ) {
+        this._templateControllers = templateControllers;
+        this._globalControllers = globalControllers;
 
         // Bind run controllers on document ready.
         document.addEventListener( "DOMContentLoaded", e => this.runDocReady( e ) );
@@ -16,22 +17,31 @@ class Theme {
      * Run theme scripts for the html elements class list.
      */
     runDocReady() {
-        for ( let className in this._controllers ) {
-            // Run with body class.
+        // Run all global scripts
+        for ( let className in this._globalControllers ) {
+            this._globalControllers[ className ].docReady();
+        }
+
+        // Run template-specific scripts
+        for ( let className in this._templateControllers ) {
             if ( Theme.documentHasClass( className ) ) {
-                this._controllers[className].docReady();
+                this._templateControllers[ className ].docReady();
             }
         }
     }
 
     get controllers() {
-        return this._controllers;
+        return this._templateControllers.concat( this._globalControllers ) ;
     }
 
     getController( name ) {
-        if ( typeof this._controllers[name] !== "undefined" ) {
-            return this._controllers[name]
-        } else {
+        if ( typeof this._templateControllers[ name ] !== "undefined" ) {
+            return this._templateControllers[ name ]
+        }
+        else if ( typeof this._globalControllers[ name ] !== "undefined" ) {
+            return this._globalControllers[ name ]
+        }
+        else {
             return false;
         }
     }

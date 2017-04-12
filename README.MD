@@ -73,25 +73,28 @@ The theme's Webpack config uses [Babel](https://babeljs.io/) to compile [ES6](ht
 
 The theme's main JS file `theme.js` holds the main theme class. The `Theme` class has runs other theme JS classes automatically on document ready event. To enable autoloading on JS side define your template scripts as follow:
 
-1. Create a separate script file for each WordPress template, for example `page-frontpage.js`.
+1. Create a separate script file for each WordPress template, for example `page-frontpage.js`. You can also create script files that are loaded anyway regardless of the template.
 
 2. Define a JS class mimicking your DustPress model, for example `Class PageFrontpage {}`.
 
-3. The document's html element will automatically get a class from your main model, for example `<html class="PageFrontpage">`. If you add more scripts for a specific template, add the corresponding class names into the `html` element's classlist.
+3. The document's html element will automatically get a class from your main model, for example `<html class="PageFrontpage">`. If you add more scripts for a specific template, add the corresponding class names into the `html` element's classlist with `dustpress/document_class` filter.
 
-4. Require your template script in `main.js` and add it into the controllers list.
+4. Require your scripts in `main.js` and add then into appropriate the controller lists.
 
    ```javascript
-   // Add all theme controllers.
-   let controllers = {
-     	// The object name must match the class name.
-       "PageFrontpage": require( __dirname + "/page-frontpage.js" )
-     	// Add other scripts here..
-   };
+    // Add template-specific scripts.
+    let templateScripts = {
+        "PageFrontpage": require( __dirname + "/page-frontpage.js" )
+    };
 
-   // Run theme scripts.
-   let Theme = require( __dirname + "/theme.js" );
-   Theme = new Theme( controllers );
+    // Add global scripts
+    let globalScripts = {
+        "Common": require( __dirname + "/common.js" )
+    };
+
+    // Run the theme scripts.
+    let Theme = require( __dirname + "/theme.js" );
+    Theme = new Theme( templateScripts, globalScripts );
    ```
 
 5. The `Theme` class will then automatically run a function called `docReady` when the document is ready. *Remember to define it in your template class!*
