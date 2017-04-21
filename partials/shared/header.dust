@@ -1,5 +1,5 @@
 <!doctype html>
-<html {WP.LanguageAttributes}>
+<html {WP.LanguageAttributes} class="{#WP.document_class}{.}{@sep} {/sep}{/WP.document_class}">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
