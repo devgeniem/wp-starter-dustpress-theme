@@ -6,7 +6,7 @@
 const $ = jQuery;
 
 /**
- * Class PageFrontpage
+ * Class Common
  */
 class Common {
 
