@@ -10,7 +10,6 @@ class Theme {
      *
      * @param  {object} templateControllers The hash map for template-specific controllers.
      * @param  {object} globalControllers   The hash map for global controllers.
-     * @return {[type]}                     [description]
      */
     constructor( templateControllers, globalControllers ) {
         this._templateControllers = templateControllers;
