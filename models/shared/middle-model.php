@@ -24,4 +24,13 @@ class MiddleModel extends \DustPress\Model {
 
         return $images;
     }
+
+    /**
+     * Bind header and footer.
+     */
+    public function Submodules() {
+        // Submodules
+        $this->bind_sub("Header");
+        $this->bind_sub("Footer");
+    }
 }
