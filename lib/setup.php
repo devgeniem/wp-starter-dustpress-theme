@@ -7,7 +7,7 @@ namespace THEMENAME\Setup;
 
 // Define the asset path.
 if ( ! defined( 'ASSET_PATH' ) ) {
-    define( 'ASSET_PATH', \get_template_directory_uri() . '/dist' );
+    define( 'ASSET_PATH', \get_template_directory_uri() . '/assets/dist' );
 }
 
 /**
@@ -15,14 +15,14 @@ if ( ! defined( 'ASSET_PATH' ) ) {
  */
 function setup() {
     // Make theme available for translation
-    \load_theme_textdomain( 'themename', get_template_directory() . '/lang' );
+    \load_theme_textdomain( 'themename-textdomain', get_template_directory() . '/lang' );
     // Enable plugins to manage the document title
     // http://codex.wordpress.org/Function_Reference/add_theme_support#Title_Tag
     \add_theme_support( 'title-tag' );
     // Register wp_nav_menu() menus
     // http://codex.wordpress.org/Function_Reference/register_nav_menus
     \register_nav_menus( [
-        'primary_navigation' => __( 'Primary Navigation', 'themename' ),
+        'primary_navigation' => __( 'Primary Navigation', 'themename-textdomain' ),
     ] );
     // Enable post thumbnails
     // http://codex.wordpress.org/Post_Thumbnails
@@ -46,8 +46,8 @@ function setup() {
  */
 function assets() {
     $version    = wp_get_theme()->get( 'Version' );
-    \wp_enqueue_style( 'theme-css', ASSET_PATH . '/styles/main.css', [], $version, 'all' );
-    \wp_enqueue_script( 'theme-js', ASSET_PATH . '/scripts/main.js', [ 'jquery' ], $version, true );
+    \wp_enqueue_style( 'theme-css', ASSET_PATH . '/main.css', [], $version, 'all' );
+    \wp_enqueue_script( 'theme-js', ASSET_PATH . '/main.js', [ 'jquery' ], $version, true );
 }
 
 \add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\\assets', 100 );

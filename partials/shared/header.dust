@@ -1,12 +1,12 @@
 <!doctype html>
-<html {WP.LanguageAttributes}>
+<html {WP.LanguageAttributes} class="{#WP.document_class}{.}{@sep} {/sep}{/WP.document_class}">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>title</title>
+    <title>{WP.title}</title>
 
     {@wphead /}
   </head>
-  <body {WP.BodyClass}>
+  <body class="{#WP.body_class}{.}{@sep} {/sep}{/WP.body_class}">
