@@ -11,7 +11,7 @@ let templateScripts = {
     "PageFrontpage": require( __dirname + "/page-frontpage.js" )
 };
 
-// Add global scripts
+// Add global scripts that have their 'docReady' method run on every page load.
 let globalScripts = {
     "Common": require( __dirname + "/common.js" )
 };
