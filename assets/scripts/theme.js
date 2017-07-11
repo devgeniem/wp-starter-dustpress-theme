@@ -16,7 +16,7 @@ class Theme {
         this._globalControllers = globalControllers;
 
         // Bind run controllers on document ready.
-        document.addEventListener( "DOMContentLoaded", e => this.runDocReady( e ) );
+        document.addEventListener( 'DOMContentLoaded', e => this.runDocReady( e ) );
     };
 
     /**
@@ -59,10 +59,10 @@ class Theme {
      * @return {object|boolean} The controller class object.
      */
     getController( name ) {
-        if ( typeof this._templateControllers[ name ] !== "undefined" ) {
+        if ( typeof this._templateControllers[ name ] !== 'undefined' ) {
             return this._templateControllers[ name ]
         }
-        else if ( typeof this._globalControllers[ name ] !== "undefined" ) {
+        else if ( typeof this._globalControllers[ name ] !== 'undefined' ) {
             return this._globalControllers[ name ]
         }
         else {

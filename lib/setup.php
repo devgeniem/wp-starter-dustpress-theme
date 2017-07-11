@@ -6,8 +6,8 @@
 namespace THEMENAME\Setup;
 
 // Define the asset path.
-if ( ! defined( 'ASSET_PATH' ) ) {
-    define( 'ASSET_PATH', \get_template_directory_uri() . '/assets/dist' );
+if ( ! defined( 'ASSET_URI' ) ) {
+    define( 'ASSET_URI', \get_template_directory_uri() . '/assets/dist' );
 }
 
 /**
@@ -37,7 +37,7 @@ function setup() {
     \add_theme_support( 'html5', [ 'caption', 'comment-form', 'comment-list', 'gallery', 'search-form' ] );
     // Use main stylesheet for visual editor
     // To add custom styles edit /assets/styles/layouts/_tinymce.scss
-    \add_editor_style( ASSET_PATH . '/styles/main.css' );
+    \add_editor_style( ASSET_URI . '/styles/main.css' );
 }
 \add_action( 'after_setup_theme', __NAMESPACE__ . '\\setup' );
 
@@ -46,8 +46,8 @@ function setup() {
  */
 function assets() {
     $version    = wp_get_theme()->get( 'Version' );
-    \wp_enqueue_style( 'theme-css', ASSET_PATH . '/main.css', [], $version, 'all' );
-    \wp_enqueue_script( 'theme-js', ASSET_PATH . '/main.js', [ 'jquery' ], $version, true );
+    \wp_enqueue_style( 'theme-css', ASSET_URI . '/main.css', [], $version, 'all' );
+    \wp_enqueue_script( 'theme-js', ASSET_URI . '/main.js', [ 'jquery' ], $version, true );
 }
 
 \add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\\assets', 100 );
