@@ -29,9 +29,9 @@ Translations and the theme textdomain are loaded from under the `/lang` director
 
 ## Assets and Webpack
 
-Assets are compiled with [Webpack](https://webpack.github.io/docs/what-is-webpack.html). Use [npm](https://www.npmjs.com/) to install packages and require JavaScript files in [assets/scripts/main.js](https://github.com/devgeniem/wp-starter-dustpress-theme/blob/master/assets/scripts/main.js) and import Sass files in [assets/styles/main.scss](https://github.com/devgeniem/wp-starter-dustpress-theme/blob/master/assets/styles/main.scss). The directory under which the assets are build is `/dist`. 
+Assets are compiled with [Webpack](https://webpack.github.io/docs/what-is-webpack.html). Use [npm](https://www.npmjs.com/) to install packages and require JavaScript files in [assets/scripts/main.js](https://github.com/devgeniem/wp-starter-dustpress-theme/blob/master/assets/scripts/main.js) and import Sass files in [assets/styles/main.scss](https://github.com/devgeniem/wp-starter-dustpress-theme/blob/master/assets/styles/main.scss). The directory under which the assets are build is `assets/dist`. 
 
-***You should only enqueue files that are under `/dist`!***
+***You should only enqueue files that are under `assets/dist`!***
 
 The URL to be used with the assets is defined in `/lib/setup.php` with the `ASSET_URI` constant. It points to `https://{site_domain}/{path_to_themes_folder}/themename/dist` by default. To use another source for assets this value can be changed by defining the constant for example in the `wp-config.php` file with a custom URI.
 
