@@ -5,7 +5,7 @@
 // Require 3rd party libraries
 require( 'babel-polyfill' );
 // Uncomment to include Foundation scripts.
-require( 'foundation-sites' );
+// require( 'foundation-sites' );
 
 // Add template-specific scripts.
 let templateScripts = {
