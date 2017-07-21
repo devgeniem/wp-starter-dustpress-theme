@@ -162,6 +162,22 @@ Alternatively you can run the `docReady` for a single controller instance:
 Theme.getController('PageFrontpage').docReady();
 ```
 
+#### `init` functions
+
+The `Theme` class runs a function called `init` for all the global scripts and the currently defined template scripts after all scripts are instantiated. If you want access other script classes on the class constructor, they might not be accessible yet due to the require order. By running your scripts on the `init` function all other script classes are already loaded and instantiated. Here is an example usage:
+
+```javascript
+// On the PageFrontpage class
+init() {
+  // I need to acces the sidebar!
+  this.Sidebar = Theme.getController('Sidebar');
+  // Now we can run stuff before the docReady..
+  this.Sidebar.frontPageMakesMeDoStuff();
+}
+```
+
+
+
 ### The `Common` class
 
 The theme assets include a default common script class called `Common`. Use this as the default class for all of your global functions and properties. For instance you might handle the main menu in the `Common` class.
