@@ -20,6 +20,12 @@ class Common {
     }
 
     /**
+     * Run when the document is ready.
+     */
+        docReady() {
+    }
+
+    /**
      * Offers safe way to stop a JS event.
      *
      * Example usage:
@@ -32,10 +38,28 @@ class Common {
     }
 
     /**
-     * Run when the document is ready.
+     * Select a list of matching elements, context is optional.
+     *
+     * @param  {string} selector The qyery selector string.
+     * @param  {object} context  A query context object.
+     * @return {object|null}     Returns null if no matches are found; otherwise, it returns the first matching element.   
      */
-    docReady() {
+    static $(selector, context) {
+        return (context || document).querySelectorAll(selector);
     }
+
+    /**
+     * Select the first match only, context is optional.
+     *
+     * @param  {string} selector The qyery selector string.
+     * @param  {object} context  A query context object.
+     * @return {object|null}     Returns null if no matches are found; otherwise, it returns the first matching element.   
+     */
+    function $1(selector, context) {
+        return (context || document).querySelector(selector);
+    }
+
 }
 
-module.exports = new Common();
+// Export the class reference.
+module.exports = Common;

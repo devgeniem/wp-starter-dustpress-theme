@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - A global and static event stopping function under the `Common` class.
  - To stop the default event on event listener callbacks run `Theme.Common.stop(e);`.
 - The `Theme` class now runs a function called `init` for all the global scripts and the currently defined template scripts after all scripts are instantiated.
+- `$` and `$1` helper functions into the `Common` class. These are neat wrappers for `querySelectorAll` and `querySelector`.
 - This awesome CHANGELOD.md file!
 
 ### Changed

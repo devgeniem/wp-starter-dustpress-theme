@@ -97,7 +97,7 @@ The theme's main JS file `theme.js` holds the main theme class. The `Theme` clas
 
 1. Create a separate script file for each WordPress template, for example `page-frontpage.js`. You can also create script files that are loaded anyway regardless of the template.
 
-2. Define a JS class mimicking your DustPress model, for example `class PageFrontpage {}`.
+2. Define a JS class mimicking your DustPress model, for example `class PageFrontpage {}` and make the Webpack module export the class reference: `module.exports = PageFrontpage;`.
 
 3. The document's html element will automatically get a class from your main model, for example `<html class="PageFrontpage">`. If you add more scripts for a specific template, add the corresponding class names into the `html` element's classlist with `dustpress/document_class` filter.
 
@@ -112,7 +112,7 @@ The theme's main JS file `theme.js` holds the main theme class. The `Theme` clas
    // Add your template-specific scripts here.
    let templateControllers = [
        require(__dirname + '/page-frontpage.js'),
-       require(__dirname + '/page-sidenav.js')
+       require(__dirname + '/category.js')
    ];
    ```
 
@@ -120,7 +120,7 @@ The theme's main JS file `theme.js` holds the main theme class. The `Theme` clas
 
 ### The `Theme` class
 
-The `Theme` class controls the running of the theme's scripts. The class instance is accessible globally under the `window` object. `Theme` holds all scripts under corresponding class properties. Global scripts are under `_globalControllers` and template specific scripts are under `_templateControllers`. These properties are hash maps meaning each controller is under a key defined with the class name:
+The `Theme` class controls the theme script classes. The class instance is accessible globally and thus `Theme` is a reserved JavaScript object name in our themes. `Theme` holds all scripts under corresponding class properties. Global scripts are under `_globalControllers` and template specific scripts are under `_templateControllers`. These properties are hash maps meaning each controller is under a key defined with the class name:
 
 ```
 this._templateController = {
@@ -128,9 +128,7 @@ this._templateController = {
 }
 ```
 
-
-
-The controller classes are instantiated by the set functions (`setGlobalControllers` and `setTemplateControllers`) run by the `main.js`. Template controllers are instantiated only if the corresponding class name is defined in the HTML element in the DOM. If the template controller class is not instantiated, you can still access it statically by calling `Theme.{ClassName}` if you want to run static functions.
+The controller classes are instantiated by the set functions (`setGlobalControllers` and `setTemplateControllers`) run by the `main.js`. Thus an instance of a class is created and accessible before the document is ready and loaded. Template controllers are instantiated only if the corresponding style class name is defined for the `html` element in the DOM. If the template controller class is not instantiated, you can still access it statically by calling `Theme.{ClassName}`.
 
 **This class is not to be modified! Use other script files to do the magic in you theme!**
 
@@ -145,7 +143,22 @@ var frontpageInstance = Theme.getController("PageFrontpage");
 To access a class reference, fetch it as follows:
 
 ```javascript
-var frontpageClass = Theme.PageFrontpage;
+var commonClass = Theme.Common;
+```
+
+Class references are useful if you need global static functions. For instance you might create a static global Vanilla JS query selector under `common.js`:
+
+```javascript
+// Select a list of matching elements, context is optional.
+static $(selector, context) {
+    return (context || document).querySelectorAll(selector);
+}
+```
+
+and then use it as follows:
+
+```
+let element = Theme.Common.$('.my-element');
 ```
 
 #### `docReady` functions
@@ -176,8 +189,6 @@ init() {
 }
 ```
 
-
-
 ### The `Common` class
 
 The theme assets include a default common script class called `Common`. Use this as the default class for all of your global functions and properties. For instance you might handle the main menu in the `Common` class.
@@ -197,7 +208,21 @@ myEventCallback(e) {
 }
 ```
 
+#### **`#### **
 
+This **static** function wraps the `querySelectorAll` function an lets you select a list of matching elements. To optimize the query add a context element and only query under it.
+
+```
+let elements = Theme.Common.$('.my-element', myParentElementObject);
+```
+
+#### **`$1`**
+
+This **static** function wraps the `querySelector` functions to select a single element from the `DOM`. To optimize the query add a context element and only query under it.
+
+```
+let element = $1('.my-element', myParentElementObject);
+```
 
 ##  Contributors
 

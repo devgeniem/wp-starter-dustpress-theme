@@ -85,8 +85,11 @@ class Theme {
     setGlobalControllers(globalControllers) {
         if (Array.isArray(globalControllers)) {
             for (let i = 0; i < globalControllers.length; i++) {
+                // Get the class name from the class reference.
                 let className = globalControllers[i].name;
+                // Set the class reference as a property under the Theme instance.
                 this[className] = globalControllers[i];
+                // Construct the class and set it under the class property.
                 this._globalControllers[className] = new globalControllers[i](); 
             }
         }
@@ -100,9 +103,13 @@ class Theme {
     setTemplateControllers(templateControllers) {
         if (Array.isArray(templateControllers)) {
             for (let i = 0; i < templateControllers.length; i++) {
+                // Get the class name from the class reference.
                 let className = templateControllers[i].name;
+                // Set the class reference as a property under the Theme instance.
                 this[className] = templateControllers[i];
-                if ( Theme.documentHasClass( className ) ) {                    
+                if ( Theme.documentHasClass( className ) ) {
+                    // If the document has the corresponding style class,
+                    // construct the class and set it under the class property.
                     this._templateControllers[ className ] = new templateControllers[i]();
                 }
             }
