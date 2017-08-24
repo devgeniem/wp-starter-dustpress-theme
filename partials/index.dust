@@ -2,12 +2,8 @@
 
 {#Index.Content}
 
-<div class="row">
-	<div class="large-12 columns">
-		<h1>{WP.name}</h1>
-		{@content}{/content}
-	</div>
-</div>
+	<h1>{WP.name}</h1>
+	{@content}{/content}
 
 {/Index.Content}
 

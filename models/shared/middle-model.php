@@ -1,7 +1,19 @@
 <?php
+/**
+ * MiddleModel file
+ */
 
+/**
+ * MiddleModel class
+ */
 class MiddleModel extends \DustPress\Model {
 
+    /**
+     * Constructor function
+     *
+     * @param array  $args Arguments.
+     * @param object $parent Parent.
+     */
     public function __construct( $args = [], $parent = null ) {
         $document_class = get_class( $this );
 
@@ -14,6 +26,12 @@ class MiddleModel extends \DustPress\Model {
         parent::__construct( $args, $parent );
     }
 
+    /**
+     * Get image sizes
+     *
+     * @param int $post_id Post ID.
+     * @return array
+     */
     protected function get_all_image_sizes( $post_id ) {
         $sizes = get_intermediate_image_sizes();
         $attachment_id = get_post_thumbnail_id( $post_id );
@@ -26,11 +44,10 @@ class MiddleModel extends \DustPress\Model {
     }
 
     /**
-     * Bind header and footer.
+     * Bind submodels, if user is logged in, bind also subtopbar
      */
-    public function Submodules() {
-        // Submodules
-        $this->bind_sub("Header");
-        $this->bind_sub("Footer");
+    public function submodels() {
+        $this->bind_sub( 'Header' );
+        $this->bind_sub( 'Footer' );
     }
 }

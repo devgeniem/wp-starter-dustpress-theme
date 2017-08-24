@@ -35,9 +35,6 @@ function setup() {
     // Enable HTML5 markup support
     // http://codex.wordpress.org/Function_Reference/add_theme_support#HTML5
     \add_theme_support( 'html5', [ 'caption', 'comment-form', 'comment-list', 'gallery', 'search-form' ] );
-    // Use main stylesheet for visual editor
-    // To add custom styles edit /assets/styles/layouts/_tinymce.scss
-    \add_editor_style( ASSET_URI . '/styles/main.css' );
 }
 \add_action( 'after_setup_theme', __NAMESPACE__ . '\\setup' );
 
@@ -51,6 +48,15 @@ function assets() {
 }
 
 \add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\\assets', 100 );
+
+/**
+ * Admin assets.
+ */
+function admin_assets() {
+        wp_register_style( 'geniem_admin_styles', ASSET_URI . '/admin.css', false, '1.0.0' );
+        wp_enqueue_style( 'geniem_admin_styles' );
+}
+\add_action( 'admin_enqueue_scripts', __NAMESPACE__ . '\\admin_assets', 100 );
 
 /**
  * Disable emojis.
@@ -123,3 +129,12 @@ function cleanup_head() {
     // Remove oEmbed-specific JavaScript from the front-end and back-end.
     \remove_action( 'wp_head', 'wp_oembed_add_host_js' );
 }
+
+/**
+ * Fix ACF admin styles when changing a field's type.
+ * Bug introduced at least in ACF version 5.6.0.
+ * Propably even before. Erase this if you don't need it or the bug is fixed.
+ */
+add_action('wp_ajax_acf/field_group/render_field_settings', function() {
+    header( 'Content-Type: text/plain; charset=UTF-8' );
+}, 1 );
