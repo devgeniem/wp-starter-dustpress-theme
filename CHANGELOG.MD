@@ -6,6 +6,17 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [1.0.1] - 2017-08-28
+
+### Changed
+
+- Fixed the function definiton for `$1` in  `common.js`.
+
+### Removed
+
+- Removed a default script include of an undefined script file: `page-sidenav.js`.
+
+
 ## [1.0.0] - 2017-08-28
 
 ### Added
