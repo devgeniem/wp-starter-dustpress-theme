@@ -22,7 +22,6 @@ let globalControllers = [
 // Add your template-specific scripts here.
 let templateControllers = [
     require(__dirname + '/page-frontpage.js'),
-    require(__dirname + '/page-sidenav.js')
 ];
 
 // Pass the required scripts and construct the global ones first.
