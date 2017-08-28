@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Changed
 
 - Fixed the function definiton for `$1` in  `common.js`.
+- The `main.js` is now enqueued in the header.
 
 ### Removed
 
