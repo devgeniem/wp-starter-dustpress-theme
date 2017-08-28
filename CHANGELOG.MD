@@ -6,6 +6,19 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [1.0.0] - 2017-08-28
+
+### Added
+
+### Changed
+- Rename _fonts.scss to _font-face.scss.
+- Fix indentation errors from PHP files.
+- Add comments to style files.
+
+### Removed 
+
+## [0.0.2] - 2017-08-24
+
 ### Added
 - Add admin styles and scripts to the theme
 - Add a [Modernizr](https://modernizr.com/) config to the theme
@@ -24,6 +37,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Remove scss-lint file because the new linter should be the npm package sass-lint.
 
 ## [0.0.1] - 2017-07-21
+
 ### Added
 - All script classes can be accessed statically via the `Theme` instance.
  - For example the global `Common` class is accessible by calling `Theme.Common`.
