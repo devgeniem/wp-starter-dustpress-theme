@@ -1,0 +1,49 @@
+/* -------------------------
+ADMIN STYLES HERE
+------------------------- */
+
+// VARIABLES FOR LATER USE
+$settings__text--light: #fff;
+$settings__text--dark: #3c3c3c;
+$settings__bg--light: #f0f0f0;
+$settings__bg--dark: #2c2c2c;
+$settings__border--dark: darken($settings__bg--dark, 20%);
+$settings__border--light: #c0c0c0;
+
+// ADD THIS CLASS TO ALL ACF FIELD GROUPS' INSTRUCTION FIELDS IN THE ADMIN.
+// IT MAKES THE INTRO TEXT MORE VISIBLE.
+.field__instructions {
+    color: $settings__text--dark;
+    border-bottom: $settings__border--light solid .0625rem;
+    background-color: $settings__bg--light;
+    & .acf-label {
+        font-size: 1.1rem;
+
+        padding-bottom: .6rem;
+    }
+    & .acf-label,
+    & .acf-input {
+        max-width: 40rem;
+        margin: auto;
+    }
+}
+
+// THIS MAKES COMPONENTS' HEADERS LOOK DIFFERENT
+.acf-flexible-content {
+    .layout {
+        .acf-fc-layout-handle {
+            font-weight: bold;
+            color: $settings__text--light;
+            border-bottom: $settings__border--dark solid .0625rem;
+            background-color: $settings__bg--dark;
+        }
+    }
+}
+
+// ADD THIS TO EACH ITERATIONS HEADING FIELD IN YOUR REPEATERS TO MAKE THEM STAND OUT.
+// THE EFFECT IS THE SAME AS WITH THE DECLARATIONS ABOVE.
+.field__repeater__heading {
+    font-weight: bold;
+    color: $settings__text--light;
+    background-color: $settings__bg--dark;
+}

@@ -1,3 +1,5 @@
+/* global __dirname process */
+
 const webpack                 = require('webpack');
 const ExtractTextPlugin       = require('extract-text-webpack-plugin');
 const autoprefixer            = require('autoprefixer');
@@ -7,7 +9,8 @@ const env                     = process.env.NODE_ENV;
 
 let config = {
     entry: {
-        main: __dirname + '/assets/scripts/main.js'
+        main: __dirname + '/assets/scripts/main.js',
+        admin: __dirname + '/assets/scripts/admin.js'
     },
     output: {
         path: __dirname + '/assets/dist',
@@ -23,7 +26,7 @@ let config = {
     },
     plugins: [
         // Extract all css into one file.
-        new ExtractTextPlugin('main.css', {
+        new ExtractTextPlugin('[name].css', {
             allChunks: true
         }),
         // Provide jQuery instance for all modules.
@@ -71,7 +74,7 @@ let config = {
         ]
     },
     watchOptions: {
-        poll: 100
+        poll: 500
     }
 };
 

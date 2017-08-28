@@ -3,8 +3,10 @@
  */
 
 // Require 3rd party libraries
-require('babel-polyfill');
-require('foundation-sites');
+require( 'babel-polyfill' );
+require( __dirname + '/modernizr.js' );
+// Uncomment to include Foundation scripts.
+// require( 'foundation-sites' );
 
 // Run the theme scripts.
 let Theme = require( __dirname + '/theme.js' );

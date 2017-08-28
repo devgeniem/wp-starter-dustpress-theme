@@ -1,15 +1,14 @@
-@import "common/variables";
-@import "common/fonts";
-@import "common/helpers";
-@import "common/global";
-@import "common/wp-classes";
+@import 'common/font-face';
+@import 'common/settings';
+@import 'common/helpers';
 
-@import "~foundation-sites/scss/foundation";
+@import '~foundation-sites/scss/foundation';
 
-/*
- * Include Foundation styles
- */
-@include foundation-global-styles;
+/* -------------------------
+FOUNDATION STYLES
+------------------------- */
+
+//@include foundation-global-styles;
 //@include foundation-grid;
 //@include foundation-flex-grid;
 //@include foundation-typography;

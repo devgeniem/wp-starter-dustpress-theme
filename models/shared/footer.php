@@ -1,7 +1,16 @@
 <?php
+/**
+ * Footer class file
+ */
 
+/**
+ * Footer class
+ */
 class Footer extends \DustPress\Model {
-	public function Content() {
-
-	}
+    /**
+     * Footer's content
+     */
+    public function Content() {
+        // Add footer content here.
+    }
 }
