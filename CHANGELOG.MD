@@ -10,16 +10,22 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Added
 
+- No additions.
+
 ### Changed
+
 - Rename _fonts.scss to _font-face.scss.
 - Fix indentation errors from PHP files.
 - Add comments to style files.
 
 ### Removed 
 
+- Delete duplicate changelog file.
+
 ## [0.0.2] - 2017-08-24
 
 ### Added
+
 - Add admin styles and scripts to the theme
 - Add a [Modernizr](https://modernizr.com/) config to the theme
 - Add acf-fields folder under lib. This is for all acf custom fields that are not component related.
@@ -27,18 +33,21 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Add pre-commit linting to the theme. This can be commented out from the package.json file. If you want to use the feature, you have to have the needed npm utilities installed globally. 
 
 ### Changed
+
 - Modify lib/images to include a sample function that adds and modifies image sizes.
 - Modify lib/setup to no longer include the whole style file in to the admin. Instead use the added admin style file.
 - Modify style assets to simplify the theme structure.
 - Fixed coding style errors from all theme files.
 
 ### Removed 
+
 - Remove unnecessary style files and join the style declarations to simplify the assets.
 - Remove scss-lint file because the new linter should be the npm package sass-lint.
 
 ## [0.0.1] - 2017-07-21
 
 ### Added
+
 - All script classes can be accessed statically via the `Theme` instance.
  - For example the global `Common` class is accessible by calling `Theme.Common`.
  - This enables running static functions within script classes!
@@ -49,6 +58,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - This awesome CHANGELOD.md file!
 
 ### Changed
+
 - The `Theme` class is now required first in the `main.js` file.
  - `Theme` is globally accessible in any scipt file and in inline scipts.
  - For example you can use the `documentHasClass` function globally by calling `Theme.documentHasClass('class-name')`.
