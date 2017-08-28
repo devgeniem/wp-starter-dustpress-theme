@@ -93,44 +93,135 @@ include: [
 
 ### Theme scripts
 
-The theme's main JS file `theme.js` holds the main theme class. The `Theme` class has runs other theme JS classes automatically on document ready event. To enable autoloading on JS side define your template scripts as follow:
+The theme's main JS file `theme.js` holds the main theme class. The `Theme` class runs other theme JS classes automatically on document ready event. To enable autoloading on JS side define your template scripts as follow:
 
 1. Create a separate script file for each WordPress template, for example `page-frontpage.js`. You can also create script files that are loaded anyway regardless of the template.
 
-2. Define a JS class mimicking your DustPress model, for example `Class PageFrontpage {}`.
+2. Define a JS class mimicking your DustPress model, for example `class PageFrontpage {}` and make the Webpack module export the class reference: `module.exports = PageFrontpage;`.
 
 3. The document's html element will automatically get a class from your main model, for example `<html class="PageFrontpage">`. If you add more scripts for a specific template, add the corresponding class names into the `html` element's classlist with `dustpress/document_class` filter.
 
-4. Require your scripts in `main.js` and add then into appropriate the controller lists.
+4. Require your scripts in `main.js` and add then into appropriate the controller lists. The order of the scripts is essential if you need to access functions from other script classes. 
 
    ```javascript
-    // Add template-specific scripts.
-    let templateScripts = {
-        "PageFrontpage": require( __dirname + "/page-frontpage.js" )
-    };
+   // Add your global scripts here.
+   let globalControllers = [
+       require(__dirname + '/common.js')
+   ];
 
-    // Add global scripts
-    let globalScripts = {
-        "Common": require( __dirname + "/common.js" )
-    };
-
-    // Run the theme scripts.
-    let Theme = require( __dirname + "/theme.js" );
-    Theme = new Theme( templateScripts, globalScripts );
+   // Add your template-specific scripts here.
+   let templateControllers = [
+       require(__dirname + '/page-frontpage.js'),
+       require(__dirname + '/category.js')
+   ];
    ```
 
 5. The `Theme` class will then automatically run a function called `docReady` when the document is ready. *Remember to define it in your template class!*
 
-The `Theme` class is accessible globally under the `window` object. To access a single template script for instance in some inline script, fetch it as follows:
+### The `Theme` class
+
+The `Theme` class controls the theme script classes. The class instance is accessible globally and thus `Theme` is a reserved JavaScript object name in our themes. `Theme` holds all scripts under corresponding class properties. Global scripts are under `_globalControllers` and template specific scripts are under `_templateControllers`. These properties are hash maps meaning each controller is under a key defined with the class name:
+
+```
+this._templateController = {
+  {className}: {classInstance}
+}
+```
+
+The controller classes are instantiated by the set functions (`setGlobalControllers` and `setTemplateControllers`) run by the `main.js`. Thus an instance of a class is created and accessible before the document is ready and loaded. Template controllers are instantiated only if the corresponding style class name is defined for the `html` element in the DOM. If the template controller class is not instantiated, you can still access it statically by calling `Theme.{ClassName}`.
+
+**This class is not to be modified! Use other script files to do the magic in you theme!**
+
+#### Accessing controllers
+
+To access a class instance for example in some inline script, fetch it as follows:
 
 ```javascript
-var PageFrontpage = window.Theme.getController("PageFrontpage");
+var frontpageInstance = Theme.getController("PageFrontpage");
 ```
 
-To run all `docReady` functions manually for the current template *(controlled by the current html element classlist)*, run it with the class function:
+To access a class reference, fetch it as follows:
+
+```javascript
+var commonClass = Theme.Common;
+```
+
+Class references are useful if you need global static functions. For instance you might create a static global Vanilla JS query selector under `common.js`:
+
+```javascript
+// Select a list of matching elements, context is optional.
+static $(selector, context) {
+    return (context || document).querySelectorAll(selector);
+}
+```
+
+and then use it as follows:
 
 ```
-window.Theme.runDocReady();
+let element = Theme.Common.$('.my-element');
+```
+
+#### `docReady` functions
+
+If you manipulate the DOM dynamically and need to rerun *all* `docReady` functions for the current template *(controlled by the current html element classlist)*, run it with the class function:
+
+   ```
+Theme.runDocReady();
+   ```
+
+Alternatively you can run the `docReady` for a single controller instance:
+
+```javascript
+Theme.getController('PageFrontpage').docReady();
+```
+
+#### `init` functions
+
+The `Theme` class runs a function called `init` for all the global scripts and the currently defined template scripts after all scripts are instantiated. If you want access other script classes on the class constructor, they might not be accessible yet due to the require order. By running your scripts on the `init` function all other script classes are already loaded and instantiated. Here is an example usage:
+
+```javascript
+// On the PageFrontpage class
+init() {
+  // I need to acces the sidebar!
+  this.Sidebar = Theme.getController('Sidebar');
+  // Now we can run stuff before the docReady..
+  this.Sidebar.frontPageMakesMeDoStuff();
+}
+```
+
+### The `Common` class
+
+The theme assets include a default common script class called `Common`. Use this as the default class for all of your global functions and properties. For instance you might handle the main menu in the `Common` class.
+
+*Do not bloat this class! Do not be afraid to introduce more global controller classes if your script files get too long! What ever you do, [D.R.Y](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself)!*
+
+#### Useful functions under `Common`
+
+#### **`stop`**
+
+This **static** function enables you to safely stop the default event on event listener callbacks. Use it as follows:
+
+```
+myEventCallback(e) {
+	Theme.Common.stop(e);
+    // Do some other stuff with the event..
+}
+```
+
+#### **`#### **
+
+This **static** function wraps the `querySelectorAll` function an lets you select a list of matching elements. To optimize the query add a context element and only query under it.
+
+```
+let elements = Theme.Common.$('.my-element', myParentElementObject);
+```
+
+#### **`$1`**
+
+This **static** function wraps the `querySelector` functions to select a single element from the `DOM`. To optimize the query add a context element and only query under it.
+
+```
+let element = $1('.my-element', myParentElementObject);
 ```
 
 ##  Contributors
