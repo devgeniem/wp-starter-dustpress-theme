@@ -1,31 +1,34 @@
 /**
-* Theme JS building
-*/
+ * Theme JS building
+ */
 
 // Require 3rd party libraries
-require( 'babel-polyfill' );
-// Uncomment to include Foundation scripts.
-// require( 'foundation-sites' );
-
-// Add template-specific scripts.
-let templateScripts = {
-    'PageFrontpage': require( __dirname + '/page-frontpage.js' )
-};
-
-// Add global scripts that have their 'docReady' method run on every page load.
-let globalScripts = {
-    'Common': require( __dirname + '/common.js' )
-};
+require('babel-polyfill');
+require('foundation-sites');
 
 // Run the theme scripts.
 let Theme = require( __dirname + '/theme.js' );
-Theme = new Theme( templateScripts, globalScripts );
 
-// Export for global usage.
+// Export the theme controller for global usage.
 window.Theme = Theme;
 
-/**
-* require main style file here for concatenation
-*/
+// Add your global scripts here.
+let globalControllers = [
+    require(__dirname + '/common.js')
+];
 
-require( __dirname + '/../styles/main.scss' );
+// Add your template-specific scripts here.
+let templateControllers = [
+    require(__dirname + '/page-frontpage.js'),
+    require(__dirname + '/page-sidenav.js')
+];
+
+// Pass the required scripts and construct the global ones first.
+Theme.setGlobalControllers(globalControllers);
+Theme.setTemplateControllers(templateControllers);
+
+// Run the init function for all scripts.
+Theme.init();
+
+// Require main style file here for concatenation.
+require(__dirname + '/../styles/main.scss');

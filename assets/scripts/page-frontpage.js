@@ -17,10 +17,18 @@ class PageFrontpage {
     }
 
     /**
+     * This functions is run after all script classes have been instantiated.
+     * Use this if you need to access some other script instances before the document ready event.
+     */
+    init() {
+    }
+
+    /**
      * Run when the document is ready.
      */
     docReady() {
     }
 }
 
-module.exports = new PageFrontpage();
+// Export the class reference.
+module.exports = PageFrontpage;

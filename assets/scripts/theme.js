@@ -1,23 +1,120 @@
 /**
  * Class Theme
  *
- * Controls theme's JS class running.
+ * This singleton controls theme's JS class running.
  */
 class Theme {
 
     /**
-     * The class constructor.
-     *
-     * @param  {object} templateControllers The hash map for template-specific controllers.
-     * @param  {object} globalControllers   The hash map for global controllers.
+     * This holds the singleton.
      */
-    constructor( templateControllers, globalControllers ) {
-        this._templateControllers = templateControllers;
-        this._globalControllers = globalControllers;
+    static instance;
+
+    /**
+     * The constructor creates the singelton and binds the doc ready event.
+     *
+     * @return {object}                     [description]
+     */
+    constructor() {
+        if (this.instance) {
+           return this.instance;
+        }
+
+        // Initialize the controller maps.
+        this._templateControllers = {};
+        this._globalControllers = {};
 
         // Bind run controllers on document ready.
-        document.addEventListener( 'DOMContentLoaded', e => this.runDocReady( e ) );
+        document.addEventListener('DOMContentLoaded', e => this.runDocReady(e));
+
+        this.instance = this;
     };
+
+    /**
+     * Runs the 'init' function for all included scripts.
+     */
+    init() {
+        // Run all global scripts
+        for ( let className in this._globalControllers ) {
+            if ( typeof this._globalControllers[ className ].init === 'function' ) {
+                this._globalControllers[ className ].init();
+            }
+        }
+        // Run template-specific scripts
+        for ( let className in this._templateControllers ) {
+            if ( Theme.documentHasClass( className ) &&
+                typeof this._templateControllers[ className ].init === 'function'
+            ) {
+                this._templateControllers[ className ].init();
+            }
+        }
+    }
+
+    /**
+     * A getter for all controllers.
+     *
+     * @return {object} A hash map of all controllers.
+     */
+    get controllers() {
+        return this._templateControllers.concat( this._globalControllers ) ;
+    }
+
+    /**
+     * This method returns a controller by its class name if it is found.
+     *
+     * @param  {string} name The class name of a controller.
+     * @return {object|boolean} The controller instance or false if not found.
+     */
+    getController(name) {
+        if ( typeof this._globalControllers[ name ] !== 'undefined' ) {
+            return this._globalControllers[ name ]
+        }
+        else if ( typeof this._templateControllers[ name ] !== 'undefined' ) {
+            return this._templateControllers[ name ]
+        }
+        else {
+            return false;
+        }
+    }
+
+    /**
+     * Set the globally run scripts.
+     *
+     * @param {object} globalControllers The list of global controllers.
+     */
+    setGlobalControllers(globalControllers) {
+        if (Array.isArray(globalControllers)) {
+            for (let i = 0; i < globalControllers.length; i++) {
+                // Get the class name from the class reference.
+                let className = globalControllers[i].name;
+                // Set the class reference as a property under the Theme instance.
+                this[className] = globalControllers[i];
+                // Construct the class and set it under the class property.
+                this._globalControllers[className] = new globalControllers[i](); 
+            }
+        }
+    }
+
+    /**
+     * Set the template specific scripts.
+     *
+     * @param {object} templateControllers The list of template controllers.
+     */
+    setTemplateControllers(templateControllers) {
+        if (Array.isArray(templateControllers)) {
+            for (let i = 0; i < templateControllers.length; i++) {
+                // Get the class name from the class reference.
+                let className = templateControllers[i].name;
+                // Set the class reference as a property under the Theme instance.
+                this[className] = templateControllers[i];
+                if ( Theme.documentHasClass( className ) ) {
+                    // If the document has the corresponding style class,
+                    // construct the class and set it under the class property.
+                    this._templateControllers[ className ] = new templateControllers[i]();
+                }
+            }
+        }
+    }
 
     /**
      * Run theme scripts for the html elements class list.
@@ -25,48 +122,18 @@ class Theme {
     runDocReady() {
         // Run all global scripts
         for ( let className in this._globalControllers ) {
-            // Check for method existence.
-            if (typeof this._globalControllers[ className ].docReady === 'function') {
+            if ( typeof this._globalControllers[ className ].docReady === 'function' ) {
                 this._globalControllers[ className ].docReady();
             }
         }
 
-        // Run template-specific scripts.
+        // Run template-specific scripts
         for ( let className in this._templateControllers ) {
-            // Run the 'docReady' method if the document 
-            // has the correct document class and the method exists.
-            if (Theme.documentHasClass( className ) &&
-                typeof this._templateControllers[ className ].docReady === 'function') {
+            if ( Theme.documentHasClass( className ) &&
+                typeof this._templateControllers[ className ].docReady === 'function'
+            ) {
                 this._templateControllers[ className ].docReady();
             }
-        }
-    }
-
-    /**
-     * An ES6 getter for all controllers.
-     * All controllers are concatenated into a single hash map.
-     *
-     * @return {object} The hash map object.
-     */
-    get controllers() {
-        return this._templateControllers.concat( this._globalControllers ) ;
-    }
-
-    /**
-     * Returns a specific controller by the given class name.
-     *
-     * @param  {string} name    The controller class name.
-     * @return {object|boolean} The controller class object.
-     */
-    getController( name ) {
-        if ( typeof this._templateControllers[ name ] !== 'undefined' ) {
-            return this._templateControllers[ name ]
-        }
-        else if ( typeof this._globalControllers[ name ] !== 'undefined' ) {
-            return this._globalControllers[ name ]
-        }
-        else {
-            return false;
         }
     }
 
@@ -75,10 +142,10 @@ class Theme {
      *
      * @param {string} docClass The body class string.
      */
-    static documentHasClass( docClass ) {
-        return document.documentElement.classList.contains( docClass );
+    static documentHasClass(docClass) {
+        return document.documentElement.classList.contains(docClass);
     }
 
 }
 
-module.exports = Theme;
+module.exports = new Theme();
