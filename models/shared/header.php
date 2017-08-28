@@ -10,7 +10,7 @@ class Header extends \DustPress\Model {
     /**
      * Headers's content
      */
-	public function Content() {
-		// Add header content here.
-	}
+    public function Content() {
+        // Add header content here.
+    }
 }

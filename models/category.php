@@ -8,5 +8,5 @@
  */
 class Category extends MiddleModel {
 
-	// Add category code here.
+    // Add category code here.
 }

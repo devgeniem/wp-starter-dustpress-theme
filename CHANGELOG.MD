@@ -6,7 +6,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
-## [0.0.2] - 2017-07-24
 ### Added
 - Add admin styles and scripts to the theme
 - Add a [Modernizr](https://modernizr.com/) config to the theme
