@@ -6,12 +6,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
-## [1.0.1] - 2017-08-28
+## [1.0.1] - 2017-09-01
 
 ### Changed
 
 - Fixed the function definiton for `$1` in  `common.js`.
 - The `main.js` is now enqueued in the header.
+- Change the .eslintrc file to have a file ending according to present standards.
 
 ### Removed
 
