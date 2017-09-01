@@ -6,6 +6,16 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+
+- Add fastclick to package.json.
+
+### Changed
+
+- Fix all code style errors from JS files according to our eslint standard.
+- Add a comment to functions.php
+- Change the use of static class properties in theme.js. Instead define a constant in the class's constructor.
+
 ## [1.0.1] - 2017-09-01
 
 ### Changed

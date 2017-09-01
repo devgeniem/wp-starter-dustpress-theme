@@ -16,6 +16,7 @@ $includes = [
     'images.php', // Image functions
 ];
 
+// Loop through the includes and require them as part of the functions.
 foreach ( $includes as $file ) {
     $file_path = $lib_path . $file;
     if ( is_file( $file_path ) ) {
