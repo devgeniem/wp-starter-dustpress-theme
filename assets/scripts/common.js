@@ -55,7 +55,7 @@ class Common {
      * @param  {object} context  A query context object.
      * @return {object|null}     Returns null if no matches are found; otherwise, it returns the first matching element.   
      */
-    function $1(selector, context) {
+    static $1(selector, context) {
         return (context || document).querySelector(selector);
     }
 
