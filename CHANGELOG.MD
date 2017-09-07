@@ -6,6 +6,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+- Global click event listener to be used with data-cmd and data-ctrl -attributes
+
 ## [1.0.1] - 2017-09-01
 
 ### Changed

@@ -135,6 +135,8 @@ class Theme {
                 this._templateControllers[ className ].docReady();
             }
         }
+
+        this.addGlobalListener();
     }
 
     /**
@@ -144,6 +146,70 @@ class Theme {
      */
     static documentHasClass(docClass) {
         return document.documentElement.classList.contains(docClass);
+    }
+
+    /**
+     * Finds parent element with data-cmd attribute.
+     * 
+     * @param {object} Target element.
+     */
+    findCmdAttribute(element) {
+
+        let cmdAttr, cmdCtrl, hrefAttr;
+        let foundAttr = false;
+        let foundLink = false;
+
+        while(element && element.nodeName && element.getAttribute) {
+
+            // Find data-cmds
+            if (!foundAttr) {
+                cmdAttr = element.getAttribute('data-cmd');
+                cmdCtrl = element.getAttribute('data-ctrl');
+
+                if (cmdAttr && cmdCtrl) {
+                    foundAttr = { cid:cmdAttr, el:element, ctrl:cmdCtrl };
+                }
+            }
+
+            // Find links
+            if (!foundLink) {
+                hrefAttr  = element.getAttribute('href');
+
+                if (hrefAttr) {
+                    foundLink = { href:hrefAttr, el:element };
+                }
+            }
+            element = element.parentNode;
+        }
+
+        return {
+            cmd : foundAttr,
+            link : foundLink
+        }
+    }
+
+    /**
+     * Add global listener to listen click events. If clicked dom element or parent node 
+     * has data-cmd and data-ctrl attributes, call the corresponding method 
+     * in defined controller, if exists.
+     */
+    addGlobalListener() {
+        const that = this;
+
+        jQuery(document).on('click', function(e) {
+            const captured = that.findCmdAttribute(e.target);
+
+            if (captured) {
+                let command = captured.cmd.cid;
+                let controllerName = captured.cmd.ctrl;
+                let controllerInstance = that.getController(controllerName);
+
+                if ( typeof controllerInstance[command] === 'function' ) {        
+                    that.Common.stop(e);
+                    controllerInstance[command].call(controllerInstance, e);
+                }
+            }
+        });
     }
 
 }
