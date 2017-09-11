@@ -12,6 +12,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Changed
 
+- Fix code style errors from webpack.config.json
+- Change let variables to consts.
 - Fix all code style errors from JS files according to our eslint standard.
 - Add a comment to functions.php
 - Change the use of static class properties in theme.js. Instead define a constant in the class's constructor.
