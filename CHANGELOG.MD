@@ -15,6 +15,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Fix all code style errors from JS files according to our eslint standard.
 - Add a comment to functions.php
 - Change the use of static class properties in theme.js. Instead define a constant in the class's constructor.
+- Disable eslinting for the minified modernizr include under the theme.
 
 ## [1.0.1] - 2017-09-01
 
