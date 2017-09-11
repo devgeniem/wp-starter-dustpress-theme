@@ -7,7 +7,7 @@ require( 'babel-polyfill' );
 require( __dirname + '/modernizr.js' );
 
 // Require fastclick for a faster mobile UX.
-let FastClick = require( 'fastclick' );
+const FastClick = require( 'fastclick' );
 FastClick.attach( document.body );
 
 // Uncomment to include Foundation scripts.

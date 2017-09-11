@@ -82,7 +82,7 @@ class Theme {
             for ( let i = 0; i < globalControllers.length; i++ ) {
 
                 // Get the class name from the class reference.
-                let className = globalControllers[i].name;
+                const className = globalControllers[i].name;
 
                 // Set the class reference as a property under the Theme instance.
                 this[className] = globalControllers[i];
@@ -103,7 +103,7 @@ class Theme {
             for ( let i = 0; i < templateControllers.length; i++ ) {
 
                 // Get the class name from the class reference.
-                let className = templateControllers[i].name;
+                const className = templateControllers[i].name;
 
                 // Set the class reference as a property under the Theme instance.
                 this[className] = templateControllers[i];
