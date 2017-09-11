@@ -194,18 +194,16 @@ class Theme {
      * in defined controller, if exists.
      */
     addGlobalListener() {
-        const that = this;
-
-        jQuery(document).on('click', function(e) {
-            const captured = that.findCmdAttribute(e.target);
+        jQuery(document).on('click', e => {
+            const captured = this.findCmdAttribute(e.target);
 
             if (captured) {
                 let command = captured.cmd.cid;
                 let controllerName = captured.cmd.ctrl;
-                let controllerInstance = that.getController(controllerName);
+                let controllerInstance = this.getController(controllerName);
 
                 if ( typeof controllerInstance[command] === 'function' ) {        
-                    that.Common.stop(e);
+                    this.Common.stop(e);
                     controllerInstance[command].call(controllerInstance, e);
                 }
             }
