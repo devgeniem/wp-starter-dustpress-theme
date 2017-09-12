@@ -6,6 +6,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [1.0.2] - 2017-09-12
+
 ### Added
 
 - WPTEAM-39: Accessible outline removal script to `common.js`.
