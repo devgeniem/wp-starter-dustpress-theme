@@ -8,7 +8,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Added
 
-- Accessible outline removal script to `common.js`.
+- WPTEAM-39: Accessible outline removal script to `common.js`.
 - Function `cache` for caching DOM elements to `common.js`.
 - Function `events` for all basic event related functions to `common.js`.
 
