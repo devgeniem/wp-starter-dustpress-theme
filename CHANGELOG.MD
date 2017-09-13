@@ -7,7 +7,19 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 
 ### Added
-- Global click event listener to be used with data-cmd and data-ctrl -attributes
+
+- WPTEAM-62: Global click event listener to be used with data-cmd and data-ctrl -attributes
+- WPTEAM-39: Accessible outline removal script to `common.js`.
+- Function `cache` for caching DOM elements to `common.js`.
+- Function `events` for all basic event related functions to `common.js`.
+
+### Changed
+
+- No changes
+
+### Removed
+
+- Nothing.
 
 ## [1.0.1] - 2017-09-01
 
