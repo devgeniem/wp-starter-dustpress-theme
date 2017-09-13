@@ -136,7 +136,7 @@ class Theme {
             }
         }
 
-        this.addGlobalListener();
+        this.addDataCmdListener();
     }
 
     /**
@@ -182,9 +182,13 @@ class Theme {
             element = element.parentNode;
         }
 
-        return {
-            cmd : foundAttr,
-            link : foundLink
+        if(foundAttr) {
+            return {
+                cmd : foundAttr,
+                link : foundLink
+            };
+        } else {
+            return false;
         }
     }
 
@@ -193,7 +197,7 @@ class Theme {
      * has data-cmd and data-ctrl attributes, call the corresponding method 
      * in defined controller, if exists.
      */
-    addGlobalListener() {
+    addDataCmdListener() {
         jQuery(document).on('click', e => {
             const captured = this.findCmdAttribute(e.target);
 
@@ -202,7 +206,7 @@ class Theme {
                 let controllerName = captured.cmd.ctrl;
                 let controllerInstance = this.getController(controllerName);
 
-                if ( typeof controllerInstance[command] === 'function' ) {        
+                if ( controllerInstance && typeof controllerInstance[command] === 'function' ) {        
                     this.Common.stop(e);
                     controllerInstance[command].call(controllerInstance, e);
                 }
