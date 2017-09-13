@@ -224,9 +224,18 @@ This **static** function wraps the `querySelector` functions to select a single 
 let element = $1('.my-element', myParentElementObject);
 ```
 
+### Global event listener and data-cmd attributes
+
+Theme class adds global click event listener which you can use by adding data-cmd and data-ctrl attributes
+to your html element, where `data-ctrl` defines the JavaScript controller class and `data-cmd` the method to be called.
+```
+<button data-cmd="doSomething" data-ctrl="MyAwesomeController" />
+```
+
 ##  Contributors
 
 - [devgeniem](https://github.com/devgeniem)
 - [ironland](https://github.com/ironland)
 - [villesiltala](https://github.com/villesiltala)
 - [nomafin](https://github.com/Nomafin)
+- [petrimj](https://github.com/petrimj)
