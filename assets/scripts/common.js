@@ -61,7 +61,7 @@ class Common {
      *
      * @param e Event object.
      */
-    static stop(e) {
+    static stop( e ) {
         e.preventDefault ? e.preventDefault() : ( e.returnValue = false );
     }
 
@@ -72,8 +72,8 @@ class Common {
      * @param  {object} context  A query context object.
      * @return {object|null}     Returns null if no matches are found; otherwise, it returns the first matching element.
      */
-    static $(selector, context) {
-        return (context || document).querySelectorAll(selector);
+    static $( selector, context ) {
+        return ( context || document ).querySelectorAll( selector );
     }
 
     /**
@@ -83,8 +83,8 @@ class Common {
      * @param  {object} context  A query context object.
      * @return {object|null}     Returns null if no matches are found; otherwise, it returns the first matching element.
      */
-    static $1(selector, context) {
-        return (context || document).querySelector(selector);
+    static $1( selector, context ) {
+        return ( context || document ).querySelector( selector );
     }
 
 }
