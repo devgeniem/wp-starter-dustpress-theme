@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [1.0.3] - 2017-09-28
 
 ### Added
 
@@ -22,6 +22,22 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - WPTEAM-39: Accessible outline removal script to `common.js`.
 - Function `cache` for caching DOM elements to `common.js`.
 - Function `events` for all basic event related functions to `common.js`.
+
+### Removed
+
+- Nothing.
+
+## [1.0.2] - 2017-09-12
+
+### Added
+
+- WPTEAM-39: Accessible outline removal script to common.js.
+- Function cache for caching DOM elements to common.js.
+- Function events for all basic event related functions to common.js.
+
+### Changed
+
+- No changes
 
 ### Removed
 
