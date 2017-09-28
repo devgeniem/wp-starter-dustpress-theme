@@ -23,6 +23,7 @@ class Common {
      * Cache dom elements for use in the class's methods
      */
     cache() {
+
         // The accessible outline style container.
         this.focusStyleContainer = document.getElementById( 'accessible-outline' );
     }
@@ -32,6 +33,7 @@ class Common {
      * All common events
      */
     events() {
+
         // Add the outline nullifying style to the
         // container in the document head when using the mouse.
         document.body.addEventListener( 'mousedown', e => {

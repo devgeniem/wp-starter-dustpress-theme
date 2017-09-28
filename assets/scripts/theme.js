@@ -155,39 +155,39 @@ class Theme {
      * 
      * @param {object} Target element.
      */
-    findCmdAttribute(element) {
+    findCmdAttribute( element ) {
 
         let cmdAttr, cmdCtrl, hrefAttr;
         let foundAttr = false;
         let foundLink = false;
 
-        while(element && element.nodeName && element.getAttribute) {
+        while ( element && element.nodeName && element.getAttribute ) {
 
             // Find data-cmds
-            if (!foundAttr) {
-                cmdAttr = element.getAttribute('data-cmd');
-                cmdCtrl = element.getAttribute('data-ctrl');
+            if ( ! foundAttr ) {
+                cmdAttr = element.getAttribute( 'data-cmd' );
+                cmdCtrl = element.getAttribute( 'data-ctrl' );
 
-                if (cmdAttr && cmdCtrl) {
-                    foundAttr = { cid:cmdAttr, el:element, ctrl:cmdCtrl };
+                if ( cmdAttr && cmdCtrl ) {
+                    foundAttr = { cid: cmdAttr, el: element, ctrl: cmdCtrl };
                 }
             }
 
             // Find links
-            if (!foundLink) {
-                hrefAttr  = element.getAttribute('href');
+            if ( ! foundLink ) {
+                hrefAttr  = element.getAttribute( 'href' );
 
-                if (hrefAttr) {
-                    foundLink = { href:hrefAttr, el:element };
+                if ( hrefAttr ) {
+                    foundLink = { href: hrefAttr, el: element };
                 }
             }
             element = element.parentNode;
         }
 
-        if(foundAttr) {
+        if ( foundAttr ) {
             return {
-                cmd : foundAttr,
-                link : foundLink
+                cmd: foundAttr,
+                link: foundLink
             };
         } else {
             return false;
@@ -200,17 +200,17 @@ class Theme {
      * in defined controller, if exists.
      */
     addDataCmdListener() {
-        jQuery(document).on('click', e => {
-            const captured = this.findCmdAttribute(e.target);
+        jQuery( document ).on( 'click', e => {
+            const captured = this.findCmdAttribute( e.target );
 
-            if (captured) {
+            if ( captured ) {
                 let command = captured.cmd.cid;
                 let controllerName = captured.cmd.ctrl;
-                let controllerInstance = this.getController(controllerName);
+                let controllerInstance = this.getController( controllerName );
 
-                if ( controllerInstance && typeof controllerInstance[command] === 'function' ) {        
-                    this.Common.stop(e);
-                    controllerInstance[command].call(controllerInstance, e);
+                if ( controllerInstance && typeof controllerInstance[command] === 'function' ) {
+                    this.Common.stop( e );
+                    controllerInstance[command].call( controllerInstance, e );
                 }
             }
         });
