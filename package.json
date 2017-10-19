@@ -43,7 +43,7 @@
     "linters": {
       "*.php": "phpcs --standard=../../../../phpcs.xml --warning-severity=0",
       "*.js": "eslint -c ../../../../.eslintrc.json",
-      "*.scss": "sass-lint -c ../../../../.sass-lint.yml -v -i 'node_modules/**/*.scss'"
+      "*.scss": "sass-lint -c ../../../../.sass-lint.yml -v -i -q 'node_modules/**/*.scss'"
     }
   }
 }
