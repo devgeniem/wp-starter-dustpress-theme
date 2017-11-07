@@ -101,6 +101,16 @@ The theme's main JS file `theme.js` holds the main theme class. The `Theme` clas
 
 3. The document's html element will automatically get a class from your main model, for example `<html class="Page">`. If you add more scripts for a specific template, add the corresponding class names into the `html` element's classlist with `dustpress/document_class` filter.
 
+   ```php
+   // Add another script if we are on any type of archive page.
+   add_filter( 'dustpress/document_class', function( $document_class ) {
+       if ( is_archive() ) {
+           $document_class[] = 'MyOtherScriptClass';
+       }
+       return $document_class;
+   } );
+   ```
+
 4. Require your scripts at the beginning of `theme.js` and add them into the appropriate controller lists. The order of the scripts is essential if you need to access functions from other script classes.
 
    ```javascript
