@@ -228,7 +228,7 @@ myEventCallback(e) {
 }
 ```
 
-#### **`$()` **
+#### **`$()`**
 
 ##### Parameters
 
