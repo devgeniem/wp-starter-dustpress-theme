@@ -95,25 +95,24 @@ include: [
 
 The theme's main JS file `theme.js` holds the main theme class. The `Theme` class runs other theme JS classes automatically on document ready event. To enable autoloading on JS side define your template scripts as follow:
 
-1. Create a separate script file for each WordPress template, for example `page-frontpage.js`. You can also create script files that are loaded anyway regardless of the template.
+1. Create a separate script file for each WordPress template, for example `page.js`. You can also create script files that are loaded anyway regardless of the template.
 
-2. Define a JS class mimicking your DustPress model, for example `class PageFrontpage {}` and make the Webpack module export the class reference: `module.exports = PageFrontpage;`.
+2. Define a JS class mimicking your DustPress model, for example `class Page {}` and make the Webpack module export the *static* class reference: `module.exports = Page;`.
 
-3. The document's html element will automatically get a class from your main model, for example `<html class="PageFrontpage">`. If you add more scripts for a specific template, add the corresponding class names into the `html` element's classlist with `dustpress/document_class` filter.
+3. The document's html element will automatically get a class from your main model, for example `<html class="Page">`. If you add more scripts for a specific template, add the corresponding class names into the `html` element's classlist with `dustpress/document_class` filter.
 
-4. Require your scripts in `main.js` and add then into appropriate the controller lists. The order of the scripts is essential if you need to access functions from other script classes. 
+4. Require your scripts at the beginning of `theme.js` and add them into the appropriate controller lists. The order of the scripts is essential if you need to access functions from other script classes.
 
    ```javascript
-   // Add your global scripts here.
-   let globalControllers = [
-       require(__dirname + '/common.js')
-   ];
+   // Require global controllers.
+   const globalControllers = {
+       'Common': require( __dirname + '/common.js' )
+   };
 
-   // Add your template-specific scripts here.
-   let templateControllers = [
-       require(__dirname + '/page-frontpage.js'),
-       require(__dirname + '/category.js')
-   ];
+   // Require theme controllers.
+   const templateControllers = {
+       'Page': require( __dirname + '/page.js' )
+   };
    ```
 
 5. The `Theme` class will then automatically run a function called `docReady` when the document is ready. *Remember to define it in your template class!*
@@ -128,9 +127,9 @@ this._templateController = {
 }
 ```
 
-The controller classes are instantiated by the set functions (`setGlobalControllers` and `setTemplateControllers`) run by the `main.js`. Thus an instance of a class is created and accessible before the document is ready and loaded. Template controllers are instantiated only if the corresponding style class name is defined for the `html` element in the DOM. If the template controller class is not instantiated, you can still access it statically by calling `Theme.{ClassName}`.
+The controller classes are instantiated by the set functions, `setGlobalControllers()` and `setTemplateControllers()`, run by the constructor of `Theme`. Thus an instance of a class is created and accessible before the document is ready and loaded. Note that the template controllers are instantiated and the static reference of the template class is accessible under `Theme` only if the corresponding class name is defined as a CSS class for the `html` element in the DOM.
 
-**This class is not to be modified! Use other script files to do the magic in you theme!**
+**Do not modify the `Theme` class! Use other script files to do the magic in your theme!**
 
 #### Accessing controllers
 
@@ -158,7 +157,9 @@ static $(selector, context) {
 and then use it as follows:
 
 ```
-let element = Theme.Common.$('.my-element');
+const element = Theme.Common.$('.my-element');
+// and find by context
+const childElement = Theme.Common.$('.my-child-element', element);
 ```
 
 #### `docReady` functions
@@ -172,7 +173,7 @@ Theme.runDocReady();
 Alternatively you can run the `docReady` for a single controller instance:
 
 ```javascript
-Theme.getController('PageFrontpage').docReady();
+Theme.getController('Page').docReady();
 ```
 
 #### `init` functions
@@ -188,6 +189,21 @@ init() {
   this.Sidebar.frontPageMakesMeDoStuff();
 }
 ```
+### The global event listener
+
+The `Theme` class adds a global click event listener which you can use by adding `data-cmd` and `data-ctrl` attributes to your html element. `data-ctrl` defines the JavaScript controller class and `data-cmd` the method to be called. Example:
+```
+<button data-cmd="doSomething" data-ctrl="MyAwesomeController" />
+```
+
+This will *try* to run `doSomething` method under `MyAwesomeController` class corresponding to:
+
+```
+// The instance must be constructed elsewhere.
+myAwesomeControllerInstance.doSomething();
+```
+
+
 
 ### The `Common` class
 
@@ -197,7 +213,11 @@ The theme assets include a default common script class called `Common`. Use this
 
 #### Useful functions under `Common`
 
-#### **`stop`**
+#### **`stop()`**
+
+##### Parameters
+
+- `e` *(object) (required)* A JS event object.
 
 This **static** function enables you to safely stop the default event on event listener callbacks. Use it as follows:
 
@@ -208,28 +228,32 @@ myEventCallback(e) {
 }
 ```
 
-#### **`#### **
+#### **`$()` **
 
-This **static** function wraps the `querySelectorAll` function an lets you select a list of matching elements. To optimize the query add a context element and only query under it.
+##### Parameters
 
-```
-let elements = Theme.Common.$('.my-element', myParentElementObject);
-```
+- `selector` *(string) (required)* A query selector string.
+- `context` *(object)* A `DOM` node as the query starting point.
 
-#### **`$1`**
-
-This **static** function wraps the `querySelector` functions to select a single element from the `DOM`. To optimize the query add a context element and only query under it.
+This **static** function wraps the `querySelectorAll` function an lets you select a list of matching elements. To optimize the query add a context element to query under it.
 
 ```
-let element = $1('.my-element', myParentElementObject);
+const element = Theme.Common.$('.my-element');
+const childElement = Theme.Common.$('.my-child-element', element);
 ```
 
-### Global event listener and data-cmd attributes
+#### **`$1()`**
 
-Theme class adds global click event listener which you can use by adding data-cmd and data-ctrl attributes
-to your html element, where `data-ctrl` defines the JavaScript controller class and `data-cmd` the method to be called.
+##### Parameters
+
+- `selector` *(string) (required)* A query selector string.
+- `context` *(object)* A DOM node as the query starting point.
+
+This **static** function wraps the `querySelector` functions to select a single element from the `DOM`. To optimize the query add a context element to query under it.
+
 ```
-<button data-cmd="doSomething" data-ctrl="MyAwesomeController" />
+const element = Theme.Common.$1('.my-element');
+const childElement = Theme.Common.$1('.my-child-element', element);
 ```
 
 ##  Contributors

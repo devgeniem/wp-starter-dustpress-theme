@@ -135,6 +135,6 @@ function cleanup_head() {
  * Bug introduced at least in ACF version 5.6.0.
  * Propably even before. Erase this if you don't need it or the bug is fixed.
  */
-add_action('wp_ajax_acf/field_group/render_field_settings', function() {
+add_action( 'wp_ajax_acf/field_group/render_field_settings', function() {
     header( 'Content-Type: text/plain; charset=UTF-8' );
 }, 1 );

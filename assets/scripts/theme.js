@@ -1,3 +1,13 @@
+// Require global controllers.
+const globalControllers = {
+    'Common': require( __dirname + '/common.js' )
+};
+
+// Require theme controllers.
+const templateControllers = {
+    'Page': require( __dirname + '/page.js' )
+};
+
 /**
  * Class Theme
  *
@@ -12,12 +22,18 @@ class Theme {
      */
     constructor() {
         if ( instance ) {
-           return instance;
+            return instance;
         }
 
         // Initialize the controller maps.
         this._templateControllers = {};
         this._globalControllers = {};
+
+        // Load controllers.
+        this.setGlobalControllers();
+        this.setTemplateControllers();
+
+        this.init();
 
         // Bind run controllers on document ready.
         document.addEventListener( 'DOMContentLoaded', e => this.runDocReady( e ) );
@@ -74,44 +90,41 @@ class Theme {
 
     /**
      * Set the globally run scripts.
-     *
-     * @param {object} globalControllers The list of global controllers.
      */
-    setGlobalControllers( globalControllers ) {
-        if ( Array.isArray( globalControllers ) ) {
-            for ( let i = 0; i < globalControllers.length; i++ ) {
+    setGlobalControllers() {
+        if ( globalControllers ) {
+            for ( let className in globalControllers ) {
 
-                // Get the class name from the class reference.
-                const className = globalControllers[i].name;
+                // Skip non-function iterations.
+                if ( typeof globalControllers[className] !== 'function' ) {
+                    continue;
+                }
 
                 // Set the class reference as a property under the Theme instance.
-                this[className] = globalControllers[i];
+                this[className] = globalControllers[ className ];
 
                 // Construct the class and set it under the class property.
-                this._globalControllers[className] = new globalControllers[i]();
+                this._globalControllers[className] = new globalControllers[ className ]();
             }
         }
     }
 
     /**
      * Set the template specific scripts.
-     *
-     * @param {object} templateControllers The list of template controllers.
      */
-    setTemplateControllers( templateControllers ) {
-        if ( Array.isArray( templateControllers ) ) {
-            for ( let i = 0; i < templateControllers.length; i++ ) {
+    setTemplateControllers() {
+        if ( templateControllers ) {
+            for ( let className in templateControllers ) {
 
-                // Get the class name from the class reference.
-                const className = templateControllers[i].name;
+                // Run the template controller only if the class is defined properly
+                // and the css class of the document element contains the controller class name.
+                if ( typeof templateControllers[className] === 'function' && Theme.documentHasClass( className ) ) {
 
-                // Set the class reference as a property under the Theme instance.
-                this[className] = templateControllers[i];
-                if ( Theme.documentHasClass( className ) ) {
+                    // Set the (static) class reference as a property under the Theme instance.
+                    this[className] = templateControllers[ className ];
 
-                    // If the document has the corresponding style class,
-                    // construct the class and set it under the class property.
-                    this._templateControllers[ className ] = new templateControllers[i]();
+                    // Construct the class instance and set it under the class property.
+                    this._templateControllers[className] = new templateControllers[ className ]();
                 }
             }
         }
@@ -152,7 +165,7 @@ class Theme {
 
     /**
      * Finds parent element with data-cmd attribute.
-     * 
+     *
      * @param {object} Target element.
      */
     findCmdAttribute( element ) {
@@ -195,8 +208,8 @@ class Theme {
     }
 
     /**
-     * Add global listener to listen click events. If clicked dom element or parent node 
-     * has data-cmd and data-ctrl attributes, call the corresponding method 
+     * Add global listener to listen click events. If clicked dom element or parent node
+     * has data-cmd and data-ctrl attributes, call the corresponding method
      * in defined controller, if exists.
      */
     addDataCmdListener() {

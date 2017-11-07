@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## Unreleased
+
+### Changed
+
+- Moved the template require statements from main.js to theme.js to fix JS minification.
+- Moved Fastclick initialization from main.js to common.js to fix a bug on iOS.
+- Updated the JS development guide.
+
 ## [1.0.3] - 2017-09-28
 
 ### Added

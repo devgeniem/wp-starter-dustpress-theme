@@ -1,5 +1,5 @@
 /**
- * Frontpage JS controller.
+ * Page template JS controller.
  */
 
 // Use jQuery as $ within this file scope.
@@ -8,7 +8,7 @@ const $ = jQuery;
 /**
  * Class PageFrontpage
  */
-class PageFrontpage {
+class Page {
 
     /**
      * Class constructor is for binding class properties.
@@ -31,4 +31,4 @@ class PageFrontpage {
 }
 
 // Export the class reference.
-module.exports = PageFrontpage;
+module.exports = Page;

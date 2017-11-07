@@ -8,6 +8,9 @@
 // Use jQuery as $ within this file scope.
 const $ = jQuery;
 
+// Require fastclick for a faster mobile UX.
+const FastClick = require( 'fastclick' );
+
 /**
  * Class Common
  */
@@ -51,8 +54,11 @@ class Common {
      * Run when the document is ready.
      */
     docReady() {
+
         this.cache();
         this.events();
+        FastClick.attach( document.body );
+
     }
 
     /**
@@ -70,7 +76,7 @@ class Common {
     /**
      * Select a list of matching elements, context is optional.
      *
-     * @param  {string} selector The qyery selector string.
+     * @param  {string} selector A query selector string.
      * @param  {object} context  A query context object.
      * @return {object|null}     Returns null if no matches are found; otherwise, it returns the first matching element.
      */
