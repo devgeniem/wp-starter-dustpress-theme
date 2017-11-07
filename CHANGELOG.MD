@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Changed
 
 - Moved the template require statements from main.js to theme.js to fix JS minification.
+- Moved Fastclick initialization from main.js to common.js to fix a bug on iOS.
 - Updated the JS development guide.
 
 ## [1.0.3] - 2017-09-28
