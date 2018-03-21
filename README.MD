@@ -1,8 +1,8 @@
 ![geniem-github-banner](https://cloud.githubusercontent.com/assets/5691777/14319886/9ae46166-fc1b-11e5-9630-d60aa3dc4f9e.png)
 
-# DustPress Starter Theme
+# DustPress Starter Theme (ARCHIVED)
 
-This repository contains the starter theme for Geniem WordPress projects using [DustPress](https://github.com/devgeniem/dustpress/).
+This repository contains the old starter theme for Geniem WordPress projects using [DustPress](https://github.com/devgeniem/dustpress/). This project is no longer updated.
 
 ## Installation
 
